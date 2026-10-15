@@ -4,7 +4,7 @@ import api from "../api.js";
 import { useAuthStore } from "../store/useAuthStore.js";
 import { useChatStore } from "../store/useChatStore.js";
 
-const MODEL = "openai/gpt-4.1-mini";
+const MODEL = "aion-labs/aion-3.5";
 
 // The server has already finished the answer. Reveal its text in small pieces.
 function revealReply(text, onChange) {
@@ -62,7 +62,7 @@ export default function ChatRoom({ chatId, onChatsChanged, onBusyChange, onUsage
       setError("");
 
       try {
-        const response = await api.get(`/msg/${chatId}`);
+        const response = await api.get(`/message/${chatId}`);
         if (active) {
           setChatMessages(chatId, response.data.msg);
           scrollToBottom();
@@ -99,7 +99,7 @@ export default function ChatRoom({ chatId, onChatsChanged, onBusyChange, onUsage
     scrollToBottom();
 
     try {
-      const url = chatId ? `/msg/${chatId}` : "/msg";
+      const url = chatId ? `/message/${chatId}` : "/message";
       const body = chatId ? { content } : { content, model: MODEL };
       const response = await api.post(url, body);
       const savedChatId = response.data.chatId;

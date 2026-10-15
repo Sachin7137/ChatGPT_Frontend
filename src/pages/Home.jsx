@@ -37,8 +37,8 @@ function Home() {
       }
 
       try {
-        const response = await api.get("/user/usage");
-        setUsage(response.data);
+        const response = await api.get("/user/profile");
+        setUsage(response.data.usage);
       } catch (error) {
         if (error.response?.status === 401) {
           setStatus("logged-out");
